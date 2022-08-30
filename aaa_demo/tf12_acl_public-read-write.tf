@@ -15,3 +15,14 @@ resource "aws_s3_bucket" "log_bucket" {
     Version = "12"
   }
 }
+
+resource "aws_s3_bucket" "log_bucket_log_bucket" {
+  bucket = "log_bucket-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "log_bucket" {
+  bucket = aws_s3_bucket.log_bucket.id
+
+  target_bucket = aws_s3_bucket.log_bucket_log_bucket.id
+  target_prefix = "log/"
+}
